@@ -3,7 +3,9 @@ import re
 
 
 def convert_str_to_matrix(data: str) -> List[List[int]]:
-    """Возвращает матрицу состоящую из целых неотрицательных чисел, полученную из строки"""
+    """
+    Возвращает матрицу состоящую из целых неотрицательных чисел,
+    полученную из строки"""
     output = []
     data = data.split('\n')
     for elem in data:
@@ -14,20 +16,23 @@ def convert_str_to_matrix(data: str) -> List[List[int]]:
 
 
 def convert_matrix_to_list(matrix: List[List[int]]) -> List[int]:
-    """Возвращает список содержащий результат обхода полученной матрицы по спирали: против часовой стрелки, начиная с левого верхнего угла"""
+    """
+    Возвращает список содержащий результат обхода полученной матрицы по
+    спирали: против часовой стрелки, начиная с левого верхнего угла
+    """
     length = len(matrix)
-    x = 0
+    x = 0   # текущая позиция в матрице
     y = 0
-    dx = 1
+    dx = 1  # смещение по осям, может принимать значения -1, 0, 1
     dy = 0
-    depth = 0
+    depth = 0   # шаг спирали
     curr_perimeter = (length - depth * 2 - 1) * 4
     total_perimeter = 0
     output = []
     for i in range(length**2):
         output.append(matrix[x][y])
         test = x + dx if dx else y + dy
-        if i + 1 == total_perimeter+ curr_perimeter:
+        if i + 1 == total_perimeter + curr_perimeter:
             total_perimeter += curr_perimeter
             depth += 1
             curr_perimeter = (length - depth * 2 - 1) * 4
