@@ -13,7 +13,10 @@ async def get_matrix(url: str) -> List[int]:
                         convert_str_to_matrix(await resp.text())
                     )
                 print(resp.status)
-        except Exception as e:
+        except (
+            aiohttp.ClientConnectionError,
+            aiohttp.ServerConnectionError
+        ) as e:
             print(e)
 
 
