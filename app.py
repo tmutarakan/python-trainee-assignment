@@ -6,10 +6,15 @@ from converter import convert_str_to_matrix, convert_matrix_to_list
 
 async def get_matrix(url: str) -> List[int]:
     async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            return convert_matrix_to_list(
-                convert_str_to_matrix(await resp.text())
-            )
+        try:
+            async with session.get(url) as resp:
+                if resp.status == 200:
+                    return convert_matrix_to_list(
+                        convert_str_to_matrix(await resp.text())
+                    )
+                print(resp.status)
+        except Exception as e:
+            print(e)
 
 
 SOURCE_URL = '''https://raw.githubusercontent.com/avito-tech/python-trainee-assignment/main/matrix.txt'''
